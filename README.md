@@ -1,8 +1,4 @@
-mlops_course
-==============================
-
-
-Project Organization
+Project structure by cookiecutter
 ------------
 
     ├── LICENSE
@@ -52,4 +48,11 @@ Project Organization
 
 
 --------
+Base execution
+
+1. python3 -m venv venv
+2. source venv/bin/activate (for linux)
+3. pip install -r requirements.txt
+4. snakemake --cores all
+
 
