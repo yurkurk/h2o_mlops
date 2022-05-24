@@ -1,0 +1,35 @@
+configfile: "workflow/config.yaml"
+
+rule all:
+    input:
+        "data/raw/train.csv",
+        "data/raw/test.csv",
+        "data/processed/train_processed.csv",
+        "data/processed/test_processed.csv",
+        "models/last_model"
+
+rule viz_plots:
+    input:
+        "data/raw/train.csv"
+    output:
+        "reports/figures"
+    shell:
+        "python3 -m src.visualization.viz_plots {input} {output}"
+
+rule auto_preprocess:
+    input:
+        "data/raw/train.csv",
+        "data/raw/test.csv"
+    output:
+        "data/processed/train_processed.csv",
+        "data/processed/test_processed.csv"
+    shell:
+        "python3 -m src.features.auto_preprocess {input[0]} {input[1]} {output[0]} {output[1]}"
+
+rule train_and_save:
+    input:
+        "data/processed/train_processed.csv"
+    output:
+        "models/last_model"
+    shell:
+        "python3 -m src.models.train_and_save {input} {output}"
